@@ -24,7 +24,8 @@ namespace BBQ_Turco
         #region Windows Form Designer generated code
 
         /// <summary>
-        /// Required method for Designer support - do not modify
+        /// Required method for Designer support - do 
+        /// t modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -67,6 +68,7 @@ namespace BBQ_Turco
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1332, 761);
             this.panel1.TabIndex = 5;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
             this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseMove);
             // 
@@ -193,7 +195,6 @@ namespace BBQ_Turco
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "BBQ Turco Login";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Main_form_KeyUp);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();

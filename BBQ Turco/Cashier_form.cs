@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static BBQ_Turco.Program;
+using static BBQ_Turco.Connection;
 using static BBQ_Turco.MessageManager;
 
 namespace BBQ_Turco
@@ -25,8 +25,8 @@ namespace BBQ_Turco
             comboBox2.Items.AddRange(tokens);
 
             string[] tables_column_names = { "name", "number_of_seats", "is_reserved", "is_full" };
-            sendNewMessage(MessageManager.CreateMessage("QUERY_GET", "Tables", tables_column_names));
-            List<string> message_splitted = message.Trim().Split(',').ToList();
+            SendNewMessage(CreateMessage("QUERY_GET", "Tables", tables_column_names));
+            List<string> message_splitted = message_received.Trim().Split(',').ToList();
             for (int i = 0; i < message_splitted.Count / tables_column_names.Length; i++)
             {
                 Tables.Rows.Add(
@@ -35,15 +35,16 @@ namespace BBQ_Turco
                                         message_splitted[i * tables_column_names.Length + 2].ToString() == "True" ? "Yes" : "No",
                                         message_splitted[i * tables_column_names.Length + 3].ToString() == "True" ? "Yes" : "No");
             }
-            string[] products_column_names = { "name", "price", "status" };
-            sendNewMessage(MessageManager.CreateMessage("QUERY_GET", "Products", products_column_names));
-            message_splitted = message.Trim().Split(',').ToList();
-            for (int i = 0; i < message_splitted.Count / 3; i++)
+            string[] products_column_names = { "name", "price", "amount", "status" };
+            SendNewMessage(CreateMessage("QUERY_GET", "Products", products_column_names));
+            message_splitted = message_received.Trim().Split(',').ToList();
+            for (int i = 0; i < message_splitted.Count / products_column_names.Length; i++)
             {
                 Products.Rows.Add(
                                         message_splitted[i * products_column_names.Length + 0].ToString(),
                                         message_splitted[i * products_column_names.Length + 1].ToString(),
-                                        message_splitted[i * products_column_names.Length + 2].ToString() == "True" ? "Yes" : "No");
+                                        message_splitted[i * products_column_names.Length + 2].ToString(),
+                                        message_splitted[i * products_column_names.Length + 3].ToString() == "True" ? "Yes" : "No");
             }
             Time();
         }
@@ -53,13 +54,13 @@ namespace BBQ_Turco
             {
                 return;
             }
-            DialogResult dialogResult = MessageBox.Show("Are you sure?", Tables.SelectedRows[0].Cells[0].Value.ToString() + " will be deleted.", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show("Are you sure?", Tables.SelectedRows[0].Cells[Tables.Columns["tables_name"].Index].Value.ToString() + " will be deleted.", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
                 string table_name = "Tables";
                 string column_name = "name";
-                string value = Tables.SelectedRows[0].Cells[0].Value.ToString();
-                sendNewMessage(MessageManager.CreateMessage("QUERY_DELETE", table_name, column_name, value));
+                string value = Tables.SelectedRows[0].Cells[Tables.Columns["tables_name"].Index].Value.ToString();
+                SendNewMessage(CreateMessage("QUERY_DELETE", table_name, column_name, value));
             }
         }
 
@@ -69,7 +70,7 @@ namespace BBQ_Turco
             {
                 return;
             }
-            sendNewMessage(MessageManager.CreateMessage("QUERY_UPDATE", "Tables", "is_reserved", Tables.SelectedRows[0].Cells[2].Value.ToString() != "Yes", new string[] { "name" }, new object[] { Tables.SelectedRows[0].Cells[0].Value }));
+            SendNewMessage(CreateMessage("QUERY_UPDATE", "Tables", "is_reserved", Tables.SelectedRows[0].Cells[2].Value.ToString() != "Yes", new string[] { "name" }, new object[] { Tables.SelectedRows[0].Cells[Tables.Columns["tables_name"].Index].Value }));
         }
 
         private void newWorker_button_Click(object sender, EventArgs e)
@@ -131,13 +132,13 @@ namespace BBQ_Turco
                 MessageBox.Show("Please choose the number of seats");
                 return;
             }
-            sendNewMessage(CreateMessage("QUERY_GET", "Tables", new string[] { "name" }, new string[] { "name" }, new object[] { textBox1.Text }));
-            if (message != "null")
+            SendNewMessage(CreateMessage("QUERY_GET", "Tables", new string[] { "name" }, new string[] { "name" }, new object[] { textBox1.Text }));
+            if (message_received != "null")
             {
                 MessageBox.Show("The table name has already taken. Please choose another table name.");
                 return;
             }
-            sendNewMessage(CreateMessage("QUERY_INSERT", "Tables", new string[] { "name", "number_of_seats", "is_reserved", "is_full" }, new object[] { textBox1.Text, comboBox1.SelectedIndex + 1, false, false }));
+            SendNewMessage(CreateMessage("QUERY_INSERT", "Tables", new string[] { "name", "number_of_seats", "is_reserved", "is_full" }, new object[] { textBox1.Text, comboBox1.SelectedIndex + 1, false, false }));
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -147,10 +148,10 @@ namespace BBQ_Turco
                 MessageBox.Show("Product name or price cannot be null.");
                 return;
             }
-            sendNewMessage(CreateMessage("QUERY_GET", "Products", new string[] { "name" }, new string[] { "name" }, new object[] { textBox2.Text }));
-            if (message == "null")
+            SendNewMessage(CreateMessage("QUERY_GET", "Products", new string[] { "name" }, new string[] { "name" }, new object[] { textBox2.Text }));
+            if (message_received == "null")
             {
-                sendNewMessage(CreateMessage("QUERY_INSERT", "Products", new string[] { "name", "price", "status" }, new object[] { textBox2.Text, textBox3.Text, true }));
+                SendNewMessage(CreateMessage("QUERY_INSERT", "Products", new string[] { "name", "price", "amount", "status" }, new object[] { textBox2.Text, textBox3.Text, 0, true }));
             }
             else
             {
@@ -180,7 +181,7 @@ namespace BBQ_Turco
             {
                 return;
             }
-            sendNewMessage(CreateMessage("QUERY_UPDATE", "Products", "status", Products.SelectedRows[0].Cells[2].Value.ToString() != "Yes", new string[] { "name" }, new object[] { Products.SelectedRows[0].Cells[0].Value }));
+            SendNewMessage(CreateMessage("QUERY_UPDATE", "Products", "status", Products.SelectedRows[0].Cells[Products.Columns["products_status"].Index].Value.ToString() != "Yes", new string[] { "name" }, new object[] { Products.SelectedRows[0].Cells[Products.Columns["products_name"].Index].Value }));
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -192,19 +193,19 @@ namespace BBQ_Turco
             DialogResult dialogResult = MessageBox.Show("Are you sure?", Products.SelectedRows[0].Cells[0].Value.ToString() + " will be deleted.", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                sendNewMessage(CreateMessage("QUERY_DELETE", "Products", new string[] { "name" }, new object[] { Products.SelectedRows[0].Cells[0].Value.ToString() }));
+                SendNewMessage(CreateMessage("QUERY_DELETE", "Products", new string[] { "name" }, new object[] { Products.SelectedRows[0].Cells[Products.Columns["products_name"].Index].Value.ToString() }));
             }
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            if(Tables.SelectedRows.Count != 1)
+            if (Tables.SelectedRows.Count != 1)
             {
                 return;
             }
-            if(comboBox2.SelectedItem != null)
+            if (comboBox2.SelectedItem != null)
             {
-                sendNewMessage(MessageManager.CreateMessage("QUERY_UPDATE", "Tables", "number_of_seats", comboBox2.SelectedIndex + 1, new string[] { "name" }, new object[] { Tables.SelectedRows[0].Cells[0].Value }));
+                SendNewMessage(CreateMessage("QUERY_UPDATE", "Tables", "number_of_seats", comboBox2.SelectedIndex + 1, new string[] { "name" }, new object[] { Tables.SelectedRows[0].Cells[Tables.Columns["tables_name"].Index].Value }));
             }
         }
 
@@ -237,7 +238,7 @@ namespace BBQ_Turco
             }
             if (textBox4.Text != "")
             {
-                sendNewMessage(MessageManager.CreateMessage("QUERY_UPDATE", "Products", "price", textBox4.Text, new string[] { "name" }, new object[] { Products.SelectedRows[0].Cells[0].Value }));
+                SendNewMessage(CreateMessage("QUERY_UPDATE", "Products", "price", textBox4.Text, new string[] { "name" }, new object[] { Products.SelectedRows[0].Cells[Products.Columns["products_name"].Index].Value }));
             }
             else
             {
@@ -247,10 +248,29 @@ namespace BBQ_Turco
 
         private void Tables_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            string name = Tables.SelectedRows[0].Cells[0].Value.ToString();
-            sendNewMessage(MessageManager.CreateMessage("QUERY_GET", "Tables", new string[] { "Id" }, new string[] { "name" }, new object[] { name }));
-            TableProperty_form tableProperty_form = new TableProperty_form(Convert.ToInt32(message), name);
+            string name = Tables.SelectedRows[0].Cells[Tables.Columns["tables_name"].Index].Value.ToString();
+            SendNewMessage(CreateMessage("QUERY_GET", "Tables", new string[] { "Id" }, new string[] { "name" }, new object[] { name }));
+            TableProperty_form tableProperty_form = new TableProperty_form(Convert.ToInt32(message_received), name);
             tableProperty_form.ShowDialog();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            //textBox5;
+            if(textBox5.Text != "")
+            {
+                SendNewMessage(CreateMessage("QUERY_UPDATE", "Products", "amount", textBox5.Text, new string[] { "name" }, new object[] { Products.SelectedRows[0].Cells[Products.Columns["products_name"].Index].Value }));
+            }
+        }
+
+        private void textBox5_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

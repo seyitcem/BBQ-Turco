@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using static BBQ_Turco.MessageManager;
-using static BBQ_Turco.Program;
+using static BBQ_Turco.Connection;
 
 namespace BBQ_Turco
 {
@@ -34,14 +34,14 @@ namespace BBQ_Turco
                 MessageBox.Show("Please choose an authority type.");
                 return;
             }
-            sendNewMessage(CreateMessage("QUERY_GET", "Users", new string[] { "username" }, new string[] { "username" }, new object[] { textBox1.Text }));
-            if (message != "null")
+            SendNewMessage(CreateMessage("QUERY_GET", "Users", new string[] { "username" }, new string[] { "username" }, new object[] { textBox1.Text }));
+            if (message_received != "null")
             {
                 MessageBox.Show("The username has been already taken.");
                 return;
             }
             string salt = Hasher.GenerateSalt(18);
-            sendNewMessage(CreateMessage("QUERY_INSERT", "Users", new string[] { "username", "password", "salt", "status", "authority" }, new object[] { textBox1.Text, Hasher.HashPassword(textBox2.Text, salt), salt, true, comboBox1.Text }));
+            SendNewMessage(CreateMessage("QUERY_INSERT", "Users", new string[] { "username", "password", "salt", "status", "authority" }, new object[] { textBox1.Text, Hasher.HashPassword(textBox2.Text, salt), salt, true, comboBox1.Text }));
             this.Close();
         }
 

@@ -9,84 +9,64 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static BBQ_Turco.MessageManager;
+using static BBQ_Turco.Connection;
+
 namespace BBQ_Turco
 {
     static class Program
     {
-        static public string message;
-        static public bool new_message = false;
-        static public bool connection = false;
-        static public bool is_connection_broken = false;
-        static public bool is_return_answer = false;
         [STAThread]
         static void Main()
         {
-            Thread thread_TCP = new Thread(new ThreadStart(TCPConnection));
+            Thread thread_TCP = new Thread(TCPConnection);
             thread_TCP.Start();
             Thread thread_UDP = new Thread(UDPListener);
             thread_UDP.Start();
+            Thread thread_UDP_processor = new Thread(UDPProcessor);
+            thread_UDP_processor.Start();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Main_form());
         }
-        public static bool CheckIfFormIsOpen(string form_name)
+        static private void UDPProcessor()
         {
-            FormCollection formCollection = Application.OpenForms;
-            foreach (Form form in formCollection)
+            while (true)
             {
-                if (form.Name == form_name)
+                if (UDP_commands.Count > 0)
                 {
-                    return true;
-                }
-            }
-            return false;
-        }
-        private static void UDPListener()
-        {
-            UdpClient listener = new UdpClient();
-            listener.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
-            IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, 11000);
-            try
-            {
-                listener.Client.Bind(endPoint);
-                Console.WriteLine("Connected to the UDP server.");
-                while (true)
-                {
-                    byte[] bytes = listener.Receive(ref endPoint);
-                    string message_broadcast = Encoding.ASCII.GetString(bytes, 0, bytes.Length);
-                    Console.WriteLine($"Received broadcast from {endPoint} : {message_broadcast}\n");
-                    if (!is_return_answer)
-                    {
-                        while (!is_return_answer) ;
-                    }
-                    string[] message_tokens = message_broadcast.Split(' ');
+                    string current_message = UDP_commands.Dequeue();
+                    string[] message_tokens = current_message.Split(' ');
                     string key = message_tokens[0];
                     string table_name = message_tokens[1];
-                    message_broadcast = message_broadcast.Substring(key.Length + 1 + table_name.Length + 1);
-                    message_tokens = message_broadcast.Split(',');
-                    string open_form = null;
+                    current_message = current_message.Substring(key.Length + 1 + table_name.Length + 1);
+                    message_tokens = current_message.Split(',');
+                    while (!is_return_answer) ;
                     if (key == "UPDATE")
                     {
                         if (table_name == "Tables")
                         {
                             if (CheckIfFormIsOpen("Cashier_form"))
                             {
-                                open_form = "Cashier_form";
+                                UpdateItem(table_name, "Cashier_form", message_tokens);
                             }
                             else if (CheckIfFormIsOpen("Waiter_form"))
                             {
-                                open_form = "Waiter_form";
+                                UpdateItem(table_name, "Waiter_form", message_tokens);
                             }
                         }
                         if (table_name == "Products")
                         {
                             if (CheckIfFormIsOpen("Cashier_form"))
                             {
-                                open_form = "Cashier_form";
+                                UpdateItem(table_name, "Cashier_form", message_tokens);
                             }
                             else if (CheckIfFormIsOpen("Waiter_form"))
                             {
-                                open_form = "Waiter_form";
+                                UpdateItem(table_name, "Waiter_form", message_tokens);
+                            }
+                            else if (CheckIfFormIsOpen("Chef_form"))
+                            {
+                                UpdateItem(table_name, "Chef_form", message_tokens);
                             }
                         }
                         if (table_name == "Orders")
@@ -98,16 +78,69 @@ namespace BBQ_Turco
                                     message_tokens[1] = "True";
                                     (message_tokens[0], message_tokens[1]) = (message_tokens[2], message_tokens[3]);
                                     DeleteItem(table_name, "Waiter_form", message_tokens);
+                                    DataGridView Orders = (Application.OpenForms["Waiter_form"].Controls.Find("Orders", true)[0] as DataGridView);
+                                    if (Orders.Rows.Count == 0)
+                                    {
+                                        if (Orders.InvokeRequired)
+                                        {
+                                            Orders.Invoke(new MethodInvoker(delegate
+                                            {
+                                                Orders.Rows.Add("No order");
+                                            }));
+                                        }
+                                    }
                                 }
                                 else
                                 {
-                                    open_form = "Waiter_form";
+                                    UpdateItem(table_name, "Waiter_form", message_tokens);
                                 }
                             }
-                        }
-                        if (open_form != null)
-                        {
-                            UpdateGrid(table_name, open_form, message_tokens);
+                            else if (CheckIfFormIsOpen("Chef_form"))
+                            {
+                                if (message_tokens[0] == "is_confirmed")
+                                {
+                                    DataGridView Orders = (Application.OpenForms["Chef_form"].Controls.Find("Orders", true)[0] as DataGridView);
+                                    if (Orders.InvokeRequired)
+                                    {
+                                        Orders.Invoke(new MethodInvoker(delegate
+                                        {
+                                            Orders.Rows.Clear();
+                                        }));
+                                    }
+                                    string[] column_names = { "Id", "table_id", "is_ready", "status", "is_confirmed" };
+                                    SendNewMessage(CreateMessage("QUERY_GET", "Orders", column_names, new string[] { "is_ready", "status", "is_confirmed" }, new object[] { false, true, true }));
+                                    string[] message_splitted = message_received.Split(',');
+                                    for (int i = 0; i < message_splitted.Length / column_names.Length; i++)
+                                    {
+                                        SendNewMessage(CreateMessage("QUERY_GET", "Tables", new string[] { "name" }, new string[] { "Id" }, new object[] { message_splitted[i * column_names.Length + 1] }));
+                                        if (Orders.InvokeRequired)
+                                        {
+                                            Orders.Invoke(new MethodInvoker(delegate
+                                            {
+                                                Orders.Rows.Add(message_splitted[i * column_names.Length + 0], message_received, message_splitted[i * column_names.Length + 1], message_splitted[i * column_names.Length + 3], message_splitted[i * column_names.Length + 4]);
+                                            }));
+                                        }
+                                    }
+                                }
+                                else if (message_tokens[0] == "status" && message_tokens[1] == "False")
+                                {
+                                    DataGridView Orders = (Application.OpenForms["Chef_form"].Controls.Find("Orders", true)[0] as DataGridView);
+                                    for(int i = 0; i < Orders.RowCount; i++)
+                                    {
+                                        if (Orders.Rows[i].Cells[Orders.Columns["orders_Id"].Index].Value.ToString() == message_tokens[3])
+                                        {
+                                            if (Orders.InvokeRequired)
+                                            {
+                                                Orders.Invoke(new MethodInvoker(delegate
+                                                {
+                                                    Orders.Rows.RemoveAt(i);
+                                                }));
+                                            }
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                     else if (key == "INSERT")
@@ -116,75 +149,68 @@ namespace BBQ_Turco
                         {
                             if (CheckIfFormIsOpen("Cashier_form"))
                             {
-                                open_form = "Cashier_form";
+                                InsertItem(table_name, "Cashier_form", message_tokens);
+                            }
+                            else if (CheckIfFormIsOpen("Waiter_form"))
+                            {
+                                InsertItem(table_name, "Waiter_form", message_tokens);
                             }
                         }
                         else if (table_name == "Products")
                         {
                             if (CheckIfFormIsOpen("Cashier_form"))
                             {
-                                open_form = "Cashier_form";
+                                InsertItem(table_name, "Cashier_form", message_tokens);
+                            }
+                            else if (CheckIfFormIsOpen("Waiter_form"))
+                            {
+                                InsertItem(table_name, "Waiter_form", message_tokens);
                             }
                         }
                         else if (table_name == "Orders")
                         {
                             if (CheckIfFormIsOpen("Waiter_form"))
                             {
-                                sendNewMessage(CreateMessage("QUERY_GET", "Tables", new string[] { "Id", "name" }, new string[] { "Id" }, new object[] { message_tokens[1] }));
-                                /*
-                                lock ((object)is_return_answer)
+                                DataGridView Orders = (Application.OpenForms["Waiter_form"].Controls.Find("Orders", true)[0] as DataGridView);
+                                DataGridView Tables = (Application.OpenForms["Waiter_form"].Controls.Find("Tables", true)[0] as DataGridView);
+                                if (Tables.SelectedRows[0].Cells[Tables.Columns["tables_Id"].Index].Value.ToString() == message_tokens[1])
                                 {
-                                    Thread.Sleep(100);
-                                }
-                                */
-                                message_tokens = message.Split(',');
-                                if (Program.message != "null")
-                                {
-                                    DataGridView Tables = (Application.OpenForms["Waiter_form"].Controls.Find("Tables", true)[0] as DataGridView);
-                                    if (Tables.SelectedRows[0].Cells[Tables.Columns["tables_name"].Index].Value.ToString() == message_tokens[1])
+                                    if (Orders.InvokeRequired)
                                     {
-                                        DataGridView Orders = (Application.OpenForms["Waiter_form"].Controls.Find("Orders", true)[0] as DataGridView);
-                                        sendNewMessage(CreateMessage("QUERY_GET", "Orders", new string[] { "Id", "status" }, new string[] { "table_id", "status" }, new object[] { message_tokens[0], true }));
-                                        message_tokens = message.Split(',');
-                                        if (message_tokens[0] != "null")
+                                        Orders.Invoke(new MethodInvoker(delegate
+                                        {
+                                            Orders.Rows.Clear();
+                                        }));
+                                    }
+                                    string[] column_names = { "Id", "status", "is_confirmed" };
+                                    SendNewMessage(CreateMessage("QUERY_GET", "Orders", column_names, new string[] { "table_id", "status" }, new object[] { message_tokens[1], true }));
+                                    message_tokens = message_received.Split(',');
+                                    if (message_tokens[0] != "null")
+                                    {
+                                        for (int i = 0; i < message_tokens.Length / column_names.Length; i++)
                                         {
                                             if (Orders.InvokeRequired)
                                             {
                                                 Orders.Invoke(new MethodInvoker(delegate
                                                 {
-                                                    Orders.Rows.Clear();
-                                                }));
-                                            }
-
-                                            if (Orders.InvokeRequired)
-                                            {
-                                                Orders.Invoke(new MethodInvoker(delegate
-                                                {
-                                                    for (int i = 0; i < message_tokens.Length; i += 2)
-                                                    {
-                                                        Orders.Rows.Add(message_tokens[i]);
-                                                    }
-                                                }));
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (Orders.InvokeRequired)
-                                            {
-                                                Orders.Rows.Clear();
-                                                Orders.Invoke(new MethodInvoker(delegate
-                                                {
-                                                    Orders.Rows.Add("No order");
+                                                    Orders.Rows.Add(message_tokens[i * column_names.Length + 0], message_tokens[i * column_names.Length + 2] == "True" ? "Yes" : "No", message_tokens[i * column_names.Length + 1]);
                                                 }));
                                             }
                                         }
                                     }
+                                    else
+                                    {
+                                        if (Orders.InvokeRequired)
+                                        {
+                                            Orders.Invoke(new MethodInvoker(delegate
+                                        {
+                                            Orders.Rows.Add("No order");
+
+                                        }));
+                                        }
+                                    }
                                 }
                             }
-                        }
-                        if (open_form != null)
-                        {
-                            InsertItem(table_name, open_form, message_tokens);
                         }
                     }
                     else if (key == "DELETE")
@@ -193,34 +219,29 @@ namespace BBQ_Turco
                         {
                             if (CheckIfFormIsOpen("Cashier_form"))
                             {
-                                open_form = "Cashier_form";
+                                DeleteItem(table_name, "Cashier_form", message_tokens);
+                            }
+                            else if (CheckIfFormIsOpen("Waiter_form"))
+                            {
+                                DeleteItem(table_name, "Waiter_form", message_tokens);
                             }
                         }
                         if (table_name == "Products")
                         {
                             if (CheckIfFormIsOpen("Cashier_form"))
                             {
-                                open_form = "Cashier_form";
+                                DeleteItem(table_name, "Cashier_form", message_tokens);
                             }
-                        }
-                        if (open_form != null)
-                        {
-                            DeleteItem(table_name, open_form, message_tokens);
+                            else if (CheckIfFormIsOpen("Waiter_form"))
+                            {
+                                DeleteItem(table_name, "Waiter_form", message_tokens);
+                            }
                         }
                     }
                 }
             }
-            catch (SocketException e)
-            {
-                Console.WriteLine("UDP Connection Error.");
-                Console.WriteLine(e);
-            }
-            finally
-            {
-                listener.Close();
-            }
         }
-        static void DeleteItem(string table_name, string open_form, string[] message_tokens)
+        static private void DeleteItem(string table_name, string open_form, string[] message_tokens)
         {
             DataGridView dataGridView = (Application.OpenForms[open_form].Controls.Find(table_name, true)[0] as DataGridView);
             string column_name = table_name.ToLower() + '_' + message_tokens[0];
@@ -239,11 +260,11 @@ namespace BBQ_Turco
                 }
             }
         }
-        static void InsertItem(string table_name, string open_form, string[] message_tokens)
+        static private void InsertItem(string table_name, string open_form, string[] message_tokens)
         {
             DataGridView dataGridView = (Application.OpenForms[open_form].Controls.Find(table_name, true)[0] as DataGridView);
             DataGridViewRow dataGridViewRow = new DataGridViewRow();
-            dataGridViewRow.Height = 35;
+            dataGridViewRow.Height = 30;
             for (int i = 0; i < message_tokens.Length; i += 2)
             {
                 DataGridViewTextBoxCell dataGridViewTextBoxCell = new DataGridViewTextBoxCell();
@@ -269,7 +290,7 @@ namespace BBQ_Turco
                 dataGridView.Rows.Add(dataGridViewRow);
             }
         }
-        static void UpdateGrid(string table_name, string open_form, string[] message_tokens)
+        static private void UpdateItem(string table_name, string open_form, string[] message_tokens)
         {
             DataGridView dataGridView = (Application.OpenForms[open_form].Controls.Find(table_name, true)[0] as DataGridView);
             int index = dataGridView.Columns[table_name.ToLower() + '_' + message_tokens[0]].Index;
@@ -289,89 +310,6 @@ namespace BBQ_Turco
                     break;
                 }
             }
-        }
-        static void TCPConnection()
-        {
-            while (true)
-            {
-                try
-                {
-                    TcpClient tcpClient = new TcpClient("127.0.0.1", 1234);
-                    Console.WriteLine("Connected to the TCP server." + "\n");
-
-                    Thread readThread = new Thread(TCPListener);
-                    readThread.Start(tcpClient);
-
-                    connection = true;
-
-                    if (is_connection_broken)
-                    {
-                        MessageBox.Show("The connection has been restored.");
-                        is_connection_broken = false;
-                    }
-
-                    StreamWriter sWriter = new StreamWriter(tcpClient.GetStream());
-
-                    while (true)
-                    {
-                        Thread.Sleep(100);
-                        if (tcpClient.Connected)
-                        {
-                            if (new_message)
-                            {
-                                sWriter.WriteLine(message);
-                                sWriter.Flush();
-                                new_message = false;
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("The connection is broken. Please check the connection.");
-                            connection = false;
-                            is_connection_broken = true;
-                            Thread.Sleep(1000);
-                            break;
-                        }
-                    }
-
-                }
-                catch (Exception e)
-                {
-                    connection = false;
-                    MessageBox.Show(e.Message);
-                    Thread.Sleep(1000);
-                }
-            }
-        }
-        static void TCPListener(object obj)
-        {
-            TcpClient tcpClient = (TcpClient)obj;
-            StreamReader sReader = new StreamReader(tcpClient.GetStream());
-            while (true)
-            {
-                try
-                {
-                    message = sReader.ReadLine();
-                    is_return_answer = true;
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                    break;
-                }
-            }
-        }
-        static public void sendNewMessage(string msg)
-        {
-            Console.WriteLine("Sent message: " + msg);
-            message = msg;
-            new_message = true;
-            if (!is_return_answer)
-            {
-                while (!is_return_answer) ;
-            }
-            is_return_answer = false;
-            Console.WriteLine("Received message: " + message + "\n");
         }
     }
 }

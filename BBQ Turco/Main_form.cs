@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static BBQ_Turco.Program;
+using static BBQ_Turco.Connection;
+using static BBQ_Turco.MessageManager;
 
 namespace BBQ_Turco
 {
@@ -35,8 +36,8 @@ namespace BBQ_Turco
                 return;
             }
             string username = username_textBox.Text;
-            sendNewMessage(MessageManager.CreateMessage("LOGIN_ATTEMPT", username_textBox.Text, password_textBox.Text));
-            List<string> message_splitted = message.Split(' ').ToList();
+            SendNewMessage(CreateMessage("LOGIN_ATTEMPT", username_textBox.Text, password_textBox.Text));
+            List<string> message_splitted = message_received.Split(' ').ToList();
             if (message_splitted[0] == "LOGIN_ACCEPTED")
             {
                 this.Hide();
@@ -91,14 +92,6 @@ namespace BBQ_Turco
             if (e.KeyCode == Keys.Enter)
             {
                 login_button.PerformClick();
-            }
-        }
-
-        private void Main_form_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode==Keys.Escape)
-            {
-                this.Close();
             }
         }
         private void pictureBox3_MouseUp(object sender, MouseEventArgs e)
@@ -160,6 +153,11 @@ namespace BBQ_Turco
         private void label3_MouseDown(object sender, MouseEventArgs e)
         {
             location = e.Location;
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

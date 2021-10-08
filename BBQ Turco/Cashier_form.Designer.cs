@@ -29,12 +29,12 @@ namespace BBQ_Turco
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
             this.welcome_label = new System.Windows.Forms.Label();
             this.Tables = new System.Windows.Forms.DataGridView();
             this.delete_button = new System.Windows.Forms.Button();
@@ -49,44 +49,49 @@ namespace BBQ_Turco
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.Products = new System.Windows.Forms.DataGridView();
+            this.products_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.products_price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.products_amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.products_status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.button5 = new System.Windows.Forms.Button();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.button7 = new System.Windows.Forms.Button();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.button6 = new System.Windows.Forms.Button();
+            this.panel7 = new System.Windows.Forms.Panel();
             this.button4 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.panel8 = new System.Windows.Forms.Panel();
-            this.products_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.products_price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.products_status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tables_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tables_number_of_seats = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tables_is_reserved = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tables_is_full = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panel9 = new System.Windows.Forms.Panel();
-            this.button6 = new System.Windows.Forms.Button();
-            this.textBox4 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.Tables)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Products)).BeginInit();
             this.panel2.SuspendLayout();
+            this.panel8.SuspendLayout();
+            this.panel6.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.panel4.SuspendLayout();
-            this.panel6.SuspendLayout();
-            this.panel7.SuspendLayout();
-            this.panel8.SuspendLayout();
+            this.panel10.SuspendLayout();
             this.panel9.SuspendLayout();
+            this.panel7.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // welcome_label
@@ -112,14 +117,14 @@ namespace BBQ_Turco
             this.Tables.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
             this.Tables.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
             this.Tables.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(53)))), ((int)(((byte)(53)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlLight;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(53)))), ((int)(((byte)(53)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlLight;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Tables.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(53)))), ((int)(((byte)(53)))));
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.ControlLight;
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(53)))), ((int)(((byte)(53)))));
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.ControlLight;
+            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Tables.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
             this.Tables.ColumnHeadersHeight = 35;
             this.Tables.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.Tables.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -127,14 +132,14 @@ namespace BBQ_Turco
             this.tables_number_of_seats,
             this.tables_is_reserved,
             this.tables_is_full});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.Tables.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.Tables.DefaultCellStyle = dataGridViewCellStyle14;
             this.Tables.EnableHeadersVisualStyles = false;
             this.Tables.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
             this.Tables.Location = new System.Drawing.Point(3, 3);
@@ -142,20 +147,20 @@ namespace BBQ_Turco
             this.Tables.Name = "Tables";
             this.Tables.ReadOnly = true;
             this.Tables.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Tables.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle15.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Tables.RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
             this.Tables.RowHeadersVisible = false;
-            this.Tables.RowHeadersWidth = 51;
+            this.Tables.RowHeadersWidth = 30;
             this.Tables.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.Tables.RowTemplate.Height = 35;
+            this.Tables.RowTemplate.Height = 30;
             this.Tables.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.Tables.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.Tables.Size = new System.Drawing.Size(438, 457);
+            this.Tables.Size = new System.Drawing.Size(562, 397);
             this.Tables.TabIndex = 2;
             this.Tables.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.Tables_CellMouseDoubleClick);
             // 
@@ -209,7 +214,7 @@ namespace BBQ_Turco
             this.time_label.AutoSize = true;
             this.time_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.time_label.ForeColor = System.Drawing.Color.White;
-            this.time_label.Location = new System.Drawing.Point(16, 1023);
+            this.time_label.Location = new System.Drawing.Point(19, 900);
             this.time_label.Name = "time_label";
             this.time_label.Size = new System.Drawing.Size(60, 25);
             this.time_label.TabIndex = 9;
@@ -218,7 +223,7 @@ namespace BBQ_Turco
             // pictureBox1
             // 
             this.pictureBox1.Image = global::BBQ_Turco.res.x_white;
-            this.pictureBox1.Location = new System.Drawing.Point(850, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(980, 12);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(42, 35);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -234,7 +239,7 @@ namespace BBQ_Turco
             this.panel1.Controls.Add(this.textBox1);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.label2);
-            this.panel1.Location = new System.Drawing.Point(447, 3);
+            this.panel1.Location = new System.Drawing.Point(571, 3);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(416, 167);
             this.panel1.TabIndex = 11;
@@ -307,28 +312,29 @@ namespace BBQ_Turco
             this.Products.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
             this.Products.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
             this.Products.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(53)))), ((int)(((byte)(53)))));
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlLight;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(53)))), ((int)(((byte)(53)))));
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.ControlLight;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Products.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(53)))), ((int)(((byte)(53)))));
+            dataGridViewCellStyle16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.ControlLight;
+            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(53)))), ((int)(((byte)(53)))));
+            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.ControlLight;
+            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Products.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle16;
             this.Products.ColumnHeadersHeight = 35;
             this.Products.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.Products.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.products_name,
             this.products_price,
+            this.products_amount,
             this.products_status});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.Products.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle17.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.Products.DefaultCellStyle = dataGridViewCellStyle17;
             this.Products.EnableHeadersVisualStyles = false;
             this.Products.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
             this.Products.Location = new System.Drawing.Point(3, 3);
@@ -336,21 +342,56 @@ namespace BBQ_Turco
             this.Products.Name = "Products";
             this.Products.ReadOnly = true;
             this.Products.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Products.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle18.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Products.RowHeadersDefaultCellStyle = dataGridViewCellStyle18;
             this.Products.RowHeadersVisible = false;
-            this.Products.RowHeadersWidth = 51;
+            this.Products.RowHeadersWidth = 30;
             this.Products.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.Products.RowTemplate.Height = 35;
+            this.Products.RowTemplate.Height = 30;
             this.Products.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.Products.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.Products.Size = new System.Drawing.Size(438, 457);
+            this.Products.Size = new System.Drawing.Size(562, 397);
             this.Products.TabIndex = 12;
+            // 
+            // products_name
+            // 
+            this.products_name.HeaderText = "Product Name";
+            this.products_name.MinimumWidth = 6;
+            this.products_name.Name = "products_name";
+            this.products_name.ReadOnly = true;
+            this.products_name.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.products_name.Width = 215;
+            // 
+            // products_price
+            // 
+            this.products_price.HeaderText = "Price";
+            this.products_price.MinimumWidth = 6;
+            this.products_price.Name = "products_price";
+            this.products_price.ReadOnly = true;
+            this.products_price.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.products_price.Width = 110;
+            // 
+            // products_amount
+            // 
+            this.products_amount.HeaderText = "Amount";
+            this.products_amount.MinimumWidth = 6;
+            this.products_amount.Name = "products_amount";
+            this.products_amount.ReadOnly = true;
+            this.products_amount.Width = 125;
+            // 
+            // products_status
+            // 
+            this.products_status.HeaderText = "Status";
+            this.products_status.MinimumWidth = 6;
+            this.products_status.Name = "products_status";
+            this.products_status.ReadOnly = true;
+            this.products_status.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.products_status.Width = 110;
             // 
             // panel2
             // 
@@ -362,15 +403,35 @@ namespace BBQ_Turco
             this.panel2.Controls.Add(this.panel1);
             this.panel2.Location = new System.Drawing.Point(21, 79);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(871, 467);
+            this.panel2.Size = new System.Drawing.Size(992, 406);
             this.panel2.TabIndex = 13;
+            // 
+            // panel8
+            // 
+            this.panel8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
+            this.panel8.Controls.Add(this.newWorker_button);
+            this.panel8.Location = new System.Drawing.Point(571, 326);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(416, 72);
+            this.panel8.TabIndex = 16;
+            // 
+            // panel6
+            // 
+            this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
+            this.panel6.Controls.Add(this.reservation_button);
+            this.panel6.Controls.Add(this.delete_button);
+            this.panel6.Location = new System.Drawing.Point(571, 250);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(416, 72);
+            this.panel6.TabIndex = 15;
+            this.panel6.Paint += new System.Windows.Forms.PaintEventHandler(this.panel6_Paint);
             // 
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
             this.panel5.Controls.Add(this.button5);
             this.panel5.Controls.Add(this.comboBox2);
-            this.panel5.Location = new System.Drawing.Point(447, 176);
+            this.panel5.Location = new System.Drawing.Point(571, 174);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(416, 72);
             this.panel5.TabIndex = 14;
@@ -405,14 +466,98 @@ namespace BBQ_Turco
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(38)))), ((int)(((byte)(38)))));
+            this.panel3.Controls.Add(this.panel10);
             this.panel3.Controls.Add(this.panel9);
             this.panel3.Controls.Add(this.panel7);
             this.panel3.Controls.Add(this.panel4);
             this.panel3.Controls.Add(this.Products);
-            this.panel3.Location = new System.Drawing.Point(21, 552);
+            this.panel3.Location = new System.Drawing.Point(21, 491);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(871, 468);
+            this.panel3.Size = new System.Drawing.Size(992, 406);
             this.panel3.TabIndex = 14;
+            // 
+            // panel10
+            // 
+            this.panel10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
+            this.panel10.Controls.Add(this.textBox5);
+            this.panel10.Controls.Add(this.button7);
+            this.panel10.Location = new System.Drawing.Point(571, 246);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(416, 72);
+            this.panel10.TabIndex = 16;
+            // 
+            // textBox5
+            // 
+            this.textBox5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
+            this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.textBox5.ForeColor = System.Drawing.Color.White;
+            this.textBox5.Location = new System.Drawing.Point(8, 17);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(200, 38);
+            this.textBox5.TabIndex = 15;
+            this.textBox5.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
+            this.textBox5.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox5_KeyPress);
+            // 
+            // button7
+            // 
+            this.button7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(97)))), ((int)(((byte)(97)))), ((int)(((byte)(97)))));
+            this.button7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.button7.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.button7.Location = new System.Drawing.Point(214, 17);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(194, 37);
+            this.button7.TabIndex = 12;
+            this.button7.Text = "Change Amount";
+            this.button7.UseVisualStyleBackColor = false;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // panel9
+            // 
+            this.panel9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
+            this.panel9.Controls.Add(this.textBox4);
+            this.panel9.Controls.Add(this.button6);
+            this.panel9.Location = new System.Drawing.Point(571, 167);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(416, 72);
+            this.panel9.TabIndex = 15;
+            // 
+            // textBox4
+            // 
+            this.textBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
+            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.textBox4.ForeColor = System.Drawing.Color.White;
+            this.textBox4.Location = new System.Drawing.Point(8, 17);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(200, 38);
+            this.textBox4.TabIndex = 15;
+            this.textBox4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox4_KeyPress);
+            // 
+            // button6
+            // 
+            this.button6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(97)))), ((int)(((byte)(97)))), ((int)(((byte)(97)))));
+            this.button6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.button6.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.button6.Location = new System.Drawing.Point(214, 17);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(194, 37);
+            this.button6.TabIndex = 12;
+            this.button6.Text = "Change Price";
+            this.button6.UseVisualStyleBackColor = false;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // panel7
+            // 
+            this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
+            this.panel7.Controls.Add(this.button4);
+            this.panel7.Controls.Add(this.button1);
+            this.panel7.Location = new System.Drawing.Point(571, 325);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(416, 72);
+            this.panel7.TabIndex = 16;
             // 
             // button4
             // 
@@ -429,6 +574,21 @@ namespace BBQ_Turco
             this.button4.UseVisualStyleBackColor = false;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(97)))), ((int)(((byte)(97)))), ((int)(((byte)(97)))));
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.button1.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.button1.Location = new System.Drawing.Point(214, 16);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(194, 39);
+            this.button1.TabIndex = 12;
+            this.button1.Text = "Delete Product";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
@@ -437,9 +597,9 @@ namespace BBQ_Turco
             this.panel4.Controls.Add(this.textBox2);
             this.panel4.Controls.Add(this.label3);
             this.panel4.Controls.Add(this.label4);
-            this.panel4.Location = new System.Drawing.Point(447, 3);
+            this.panel4.Location = new System.Drawing.Point(571, 3);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(416, 166);
+            this.panel4.Size = new System.Drawing.Size(416, 157);
             this.panel4.TabIndex = 13;
             // 
             // textBox3
@@ -460,7 +620,7 @@ namespace BBQ_Turco
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.button3.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.button3.Location = new System.Drawing.Point(8, 112);
+            this.button3.Location = new System.Drawing.Point(8, 103);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(400, 39);
             this.button3.TabIndex = 13;
@@ -500,78 +660,6 @@ namespace BBQ_Turco
             this.label4.TabIndex = 1;
             this.label4.Text = "Price:";
             // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(97)))), ((int)(((byte)(97)))), ((int)(((byte)(97)))));
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.button1.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.button1.Location = new System.Drawing.Point(214, 16);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(194, 39);
-            this.button1.TabIndex = 12;
-            this.button1.Text = "Delete Product";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // panel6
-            // 
-            this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
-            this.panel6.Controls.Add(this.reservation_button);
-            this.panel6.Controls.Add(this.delete_button);
-            this.panel6.Location = new System.Drawing.Point(447, 254);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(416, 72);
-            this.panel6.TabIndex = 15;
-            this.panel6.Paint += new System.Windows.Forms.PaintEventHandler(this.panel6_Paint);
-            // 
-            // panel7
-            // 
-            this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
-            this.panel7.Controls.Add(this.button4);
-            this.panel7.Controls.Add(this.button1);
-            this.panel7.Location = new System.Drawing.Point(447, 253);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(416, 72);
-            this.panel7.TabIndex = 16;
-            // 
-            // panel8
-            // 
-            this.panel8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
-            this.panel8.Controls.Add(this.newWorker_button);
-            this.panel8.Location = new System.Drawing.Point(447, 388);
-            this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(416, 72);
-            this.panel8.TabIndex = 16;
-            // 
-            // products_name
-            // 
-            this.products_name.HeaderText = "Product Name";
-            this.products_name.MinimumWidth = 6;
-            this.products_name.Name = "products_name";
-            this.products_name.ReadOnly = true;
-            this.products_name.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.products_name.Width = 215;
-            // 
-            // products_price
-            // 
-            this.products_price.HeaderText = "Price";
-            this.products_price.MinimumWidth = 6;
-            this.products_price.Name = "products_price";
-            this.products_price.ReadOnly = true;
-            this.products_price.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.products_price.Width = 110;
-            // 
-            // products_status
-            // 
-            this.products_status.HeaderText = "Status";
-            this.products_status.MinimumWidth = 6;
-            this.products_status.Name = "products_status";
-            this.products_status.ReadOnly = true;
-            this.products_status.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.products_status.Width = 110;
-            // 
             // tables_name
             // 
             this.tables_name.HeaderText = "Table Name";
@@ -579,7 +667,7 @@ namespace BBQ_Turco
             this.tables_name.Name = "tables_name";
             this.tables_name.ReadOnly = true;
             this.tables_name.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.tables_name.Width = 150;
+            this.tables_name.Width = 226;
             // 
             // tables_number_of_seats
             // 
@@ -588,7 +676,7 @@ namespace BBQ_Turco
             this.tables_number_of_seats.Name = "tables_number_of_seats";
             this.tables_number_of_seats.ReadOnly = true;
             this.tables_number_of_seats.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.tables_number_of_seats.Width = 80;
+            this.tables_number_of_seats.Width = 125;
             // 
             // tables_is_reserved
             // 
@@ -597,7 +685,7 @@ namespace BBQ_Turco
             this.tables_is_reserved.Name = "tables_is_reserved";
             this.tables_is_reserved.ReadOnly = true;
             this.tables_is_reserved.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.tables_is_reserved.Width = 120;
+            this.tables_is_reserved.Width = 123;
             // 
             // tables_is_full
             // 
@@ -607,48 +695,12 @@ namespace BBQ_Turco
             this.tables_is_full.ReadOnly = true;
             this.tables_is_full.Width = 85;
             // 
-            // panel9
-            // 
-            this.panel9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
-            this.panel9.Controls.Add(this.textBox4);
-            this.panel9.Controls.Add(this.button6);
-            this.panel9.Location = new System.Drawing.Point(447, 175);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(416, 72);
-            this.panel9.TabIndex = 15;
-            // 
-            // button6
-            // 
-            this.button6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(97)))), ((int)(((byte)(97)))), ((int)(((byte)(97)))));
-            this.button6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.button6.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.button6.Location = new System.Drawing.Point(214, 17);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(194, 37);
-            this.button6.TabIndex = 12;
-            this.button6.Text = "Change Price";
-            this.button6.UseVisualStyleBackColor = false;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // textBox4
-            // 
-            this.textBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
-            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.textBox4.ForeColor = System.Drawing.Color.White;
-            this.textBox4.Location = new System.Drawing.Point(8, 17);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(200, 38);
-            this.textBox4.TabIndex = 15;
-            this.textBox4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox4_KeyPress);
-            // 
             // Cashier_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
-            this.ClientSize = new System.Drawing.Size(904, 1055);
+            this.ClientSize = new System.Drawing.Size(1034, 931);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.pictureBox1);
@@ -669,15 +721,17 @@ namespace BBQ_Turco
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Products)).EndInit();
             this.panel2.ResumeLayout(false);
+            this.panel8.ResumeLayout(false);
+            this.panel6.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
-            this.panel6.ResumeLayout(false);
-            this.panel7.ResumeLayout(false);
-            this.panel8.ResumeLayout(false);
+            this.panel10.ResumeLayout(false);
+            this.panel10.PerformLayout();
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
+            this.panel7.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -715,15 +769,19 @@ namespace BBQ_Turco
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn products_name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn products_price;
+        private System.Windows.Forms.DataGridViewTextBoxColumn products_amount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn products_status;
+        private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.Button button7;
         private System.Windows.Forms.DataGridViewTextBoxColumn tables_name;
         private System.Windows.Forms.DataGridViewTextBoxColumn tables_number_of_seats;
         private System.Windows.Forms.DataGridViewTextBoxColumn tables_is_reserved;
         private System.Windows.Forms.DataGridViewTextBoxColumn tables_is_full;
-        private System.Windows.Forms.DataGridViewTextBoxColumn products_name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn products_price;
-        private System.Windows.Forms.DataGridViewTextBoxColumn products_status;
-        private System.Windows.Forms.Panel panel9;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.Button button6;
     }
 }

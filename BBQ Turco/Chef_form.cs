@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static BBQ_Turco.Program;
+using static BBQ_Turco.Connection;
 using static BBQ_Turco.MessageManager;
 
 namespace BBQ_Turco
@@ -15,55 +15,73 @@ namespace BBQ_Turco
     public partial class Chef_form : Form
     {
         private string username;
+        Point location;
         public Chef_form(string username)
         {
             InitializeComponent();
             this.username = username;
         }
-
-        DataSet ds = new DataSet();
-        DataTable order = new DataTable("order");
-        DataTable orderItem = new DataTable("orderItem");
-        BindingSource bsMaster = new BindingSource();
-        BindingSource bsDetail = new BindingSource();
         private void Chef_form_Load(object sender, EventArgs e)
         {
-            Orders.DataSource = bsMaster;
-            Order_Items.DataSource = bsDetail;
-            string[] master_column_names = { "id" };
-            string[] detail_column_names = { "order_id", "product_name", "quantity" };
-            foreach (string item in master_column_names)
+            string[] orders_column_names = { "Id", "table_id", "is_ready", "status", "is_confirmed" };
+            SendNewMessage(CreateMessage("QUERY_GET", "Orders", orders_column_names, new string[] { "is_ready", "status", "is_confirmed" }, new object[] { false, true, true }));
+            string[] message_tokens = message_received.Split(',');
+            for (int i = 0; i < message_tokens.Length / orders_column_names.Length; i++)
             {
-                order.Columns.Add(item);
+                SendNewMessage(CreateMessage("QUERY_GET", "Tables", new string[] { "name" }, new string[] { "Id" }, new object[] { message_tokens[i * orders_column_names.Length + 1] }));
+                Orders.Rows.Add(message_tokens[i * orders_column_names.Length + 0], message_received, message_tokens[i * orders_column_names.Length + 1], message_tokens[i * orders_column_names.Length + 3], message_tokens[i * orders_column_names.Length + 4]);
             }
-            foreach (string item in detail_column_names)
+            string[] products_column_names = { "Id","name","amount","status" };
+            SendNewMessage(CreateMessage("QUERY_GET","Products",products_column_names));
+            message_tokens = message_received.Split(',');
+            for (int i = 0; i < message_tokens.Length / products_column_names.Length; i++)
             {
-                orderItem.Columns.Add(item);
+                Products.Rows.Add(message_tokens[i * products_column_names.Length + 1], message_tokens[i * products_column_names.Length + 2], message_tokens[i * products_column_names.Length + 3] == "True" ? "Yes" : "No", message_tokens[i * products_column_names.Length + 0]);
             }
-            sendNewMessage(CreateMessage("QUERY_GET", "Orders", new string[] { "Id" }));
-            string[] order_ids = message.Split(',');
-            for (int i = 0; i < order_ids.Length; i++)
-            {
-                sendNewMessage(CreateMessage("QUERY_GET", "Orders_Items", new string[] { "product_id", "quantity" }, new string[] { "order_id" }, new object[] { Convert.ToInt32(order_ids[i]) }));
-                string[] order_items = message.Split(',');
-                for (int j = 0; j < order_items.Length; j += 2)
-                {
-                    sendNewMessage(CreateMessage("QUERY_GET", "Products", new string[] { "name" }, new string[] { "Id" }, new object[] { order_items[j] }));
-                    orderItem.Rows.Add(order_ids[i],message, order_items[j + 1]);
-                }
-                order.Rows.Add(order_ids[i]);
-            }
-            ds.Tables.AddRange(new DataTable[] { order, orderItem });
-            ds.Relations.Add(new DataRelation("OrderProduct", order.Columns["id"], orderItem.Columns["order_id"]));
-            
-            bsMaster.DataSource = ds;
-            bsMaster.DataMember = "order";
-            bsDetail.DataSource = bsMaster;
-            bsDetail.DataMember = "OrderProduct";
+        }
+        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+            this.Close();
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void Orders_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            Orders_Items.Rows.Clear();
+            string[] column_names = { "product_id", "quantity" };
+            SendNewMessage(CreateMessage("QUERY_GET", "Orders_Items", column_names, new string[] { "order_id" }, new object[] { Orders.SelectedRows[0].Cells[Orders.Columns["orders_Id"].Index].Value }));
+            string[] message_tokens = message_received.Split(',');
+            for (int i = 0; i < message_tokens.Length / column_names.Length; i++)
+            {
+                SendNewMessage(CreateMessage("QUERY_GET", "Products", new string[] { "name" }, new string[] { "Id" }, new object[] { message_tokens[i * column_names.Length + 0] }));
+                Orders_Items.Rows.Add(message_received, message_tokens[i * column_names.Length + 1], message_tokens[i * column_names.Length + 0]);
+            }
+        }
+
+        private void Chef_form_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                this.Left += e.X - location.X;
+                this.Top += e.Y - location.Y;
+            }
+        }
+
+        private void Chef_form_MouseDown(object sender, MouseEventArgs e)
+        {
+            location = e.Location;
+        }
+
+        private void panel10_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            if (textBox5.Text != "")
+            {
+                SendNewMessage(CreateMessage("QUERY_UPDATE", "Products", "amount", textBox5.Text, new string[] { "Id" }, new object[] { Products.SelectedRows[0].Cells[Products.Columns["products_Id"].Index].Value }));
+            }
         }
     }
 }
